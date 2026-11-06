@@ -1,2 +1,3 @@
 # my-cpp-code
-c语言练习
+c++语言练习
+hello~hi~
