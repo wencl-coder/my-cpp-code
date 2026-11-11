@@ -1,0 +1,41 @@
+# Project: Project1_hannuo
+# Makefile created by Red Panda C++ 3.5.0.3801
+
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = "-Wl,--stack,12582912"
+INCS     = 
+CXXINCS  = 
+CXXFLAGS = $(CXXINCS) "-g3" "-fno-ms-extensions" "-pipe" "-Wall" "-Werror=return-type" "-Werror=vla" "-D_DEBUG"
+CFLAGS   = $(INCS) "-g3" "-fno-ms-extensions" "-pipe" "-Wall" "-Werror=implicit-int" "-Werror=return-type" "-Werror=vla" "-D_DEBUG"
+NASM_FLAGS   =  "-f" "elf64" "-g"
+WINDRESFLAGS = 
+RES      = ../../obj/Project1_hannuo_private.res
+OBJ      = ../../obj/hanhuo_fuction.o ../../obj/hanhuo.o $(RES)
+BIN      = ../../bin/Project1_hannuo.exe
+LINKOBJ  = "../../obj/hanhuo_fuction.o" "../../obj/hanhuo.o" "../../obj/Project1_hannuo_private.res"
+CLEANOBJ = "..\..\obj\hanhuo_fuction.o" "..\..\obj\hanhuo.o" "..\..\obj\Project1_hannuo_private.res" "..\..\bin\Project1_hannuo.exe"
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	-$(RM) $(CLEANOBJ) >NUL 2>&1
+
+../../bin/Project1_hannuo.exe: $(OBJ)
+
+	$(CXX) $(LINKOBJ) -o "../../bin/Project1_hannuo.exe" $(LIBS)
+
+../../obj/hanhuo_fuction.o: hanhuo_fuction.cpp
+	$(CXX) -c "hanhuo_fuction.cpp" -o "../../obj/hanhuo_fuction.o" $(CXXFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+../../obj/hanhuo.o: hanhuo.cpp hannuo.h
+	$(CXX) -c "hanhuo.cpp" -o "../../obj/hanhuo.o" $(CXXFLAGS) 
+
+../../obj/Project1_hannuo_private.res: Project1_hannuo_private.rc 
+	$(WINDRES) -i "Project1_hannuo_private.rc" --input-format=rc -o "../../obj/Project1_hannuo_private.res" -O coff $(WINDRESFLAGS) 
+
